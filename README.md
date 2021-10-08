@@ -41,5 +41,7 @@ It should reside next to the existing 'settings.py' file.
 
 Configure and run your portal using the local `manage.py` file:
 
-   python manage.py migrate
-   python manage.py runserver localhost:8000
+    python manage.py migrate
+    python manage.py runserver localhost:8000
+
+Your portal should now be running at http://localhost:8000
