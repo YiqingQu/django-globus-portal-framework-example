@@ -22,11 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# SECURITY WARNING: keep all secret keys used in production secret!
+# You can generate a secure secret key with `openssl rand -hex 32`
 SECRET_KEY = 'django-insecure-47f(ub2qs-n!b@&&)tis&l$&qf1%^@&jy-95jx!bahqrm^19m2'
-# Your portal credentials for a Globus Auth Flow. You should put these in local_settings.py
-SOCIAL_AUTH_GLOBUS_KEY = 'Put your Client ID here'
-SOCIAL_AUTH_GLOBUS_SECRET = 'Put your Client Secret Here'
+# Your portal credentials for enabling user login via Globus Auth
+SOCIAL_AUTH_GLOBUS_KEY = ''
+SOCIAL_AUTH_GLOBUS_SECRET = ''
 
 # This is a general Django setting if views need to redirect to login
 # https://docs.djangoproject.com/en/3.2/ref/settings/#login-url
@@ -42,31 +43,47 @@ ALLOWED_HOSTS = []
 
 
 SEARCH_INDEXES = {
-    'my-new-search-index': {
-        'uuid': '4a553dc0-c0d6-4260-8821-b1699bc035f4',
+    'my-search-index': {
+        'uuid': 'd731e958-1504-4b17-8b2d-05a9e7527af1',
+        'name': 'My Search Index',
         'fields': [
+            'dc',
+            ('title', fields.title),
             ('formatted_search_results', fields.formatted_search_results),
+            ('formatted_files', fields.formatted_files),
         ],
         'facets': [
             {
+                'name': 'Publisher',
+                'field_name': 'dc.publisher',
+                'size': 10,
+                'type': 'terms'
+            },
+            {
                 'name': 'Type',
-                'field_name': 'type',
+                'field_name': 'dc.subjects.subject',
+                'size': 10,
+                'type': 'terms'
+            },
+            {
+                'name': 'Type',
+                'field_name': 'dc.formats',
                 'size': 10,
                 'type': 'terms'
             },
             {
                 'name': 'File Size (Bytes)',
                 'type': 'numeric_histogram',
-                'field_name': 'size',
+                'field_name': 'files.length',
                 'size': 10,
                 'histogram_range': {'low': 5000, 'high': 10000},
             },
-            # {
-            #     "name": "Dates",
-            #     "field_name": "perfdata.dates.value",
-            #     "type": "date_histogram",
-            #     "date_interval": "month",
-            # },
+            {
+                "name": "Dates",
+                "field_name": "dc.dates.date",
+                "type": "date_histogram",
+                "date_interval": "hour",
+            },
         ],
     }
 }
