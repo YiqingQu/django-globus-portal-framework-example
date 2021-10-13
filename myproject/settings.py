@@ -47,7 +47,7 @@ SEARCH_INDEXES = {
         'uuid': 'd731e958-1504-4b17-8b2d-05a9e7527af1',
         'name': 'My Search Index',
         'fields': [
-            'dc',
+            ('dc', fields.dc),
             ('title', fields.title),
             ('formatted_search_results', fields.formatted_search_results),
             ('formatted_files', fields.formatted_files),

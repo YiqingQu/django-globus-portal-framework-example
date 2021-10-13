@@ -1,3 +1,5 @@
+import datetime
+
 
 def title(result):
     return result[0]['dc']['titles'][0]['title']
@@ -50,6 +52,12 @@ def formatted_files(result):
             },
         ] for file_obj in entry['files']
     ]
+
+
+def dc(result):
+    for date in result[0]['dc']['dates']:
+        date['date'] = datetime.datetime.fromisoformat(date['date'])
+    return result[0]['dc']
 
 
 def files(result):
