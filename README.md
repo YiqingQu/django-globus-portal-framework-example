@@ -29,10 +29,10 @@ create a new app, and ensure the following:
 * Native app **is not checked**
 * Redirect URL is set to http://localhost:8000/complete/globus
 
-Create a file for storing your credentials called 'myproject/local_settings.py'.
+Create a file for storing your credentials called 'myportal/local_settings.py'.
 It should reside next to the existing 'settings.py' file.
 
-`myproject/local_settings.py`:
+`myportal/local_settings.py`:
 
     SOCIAL_AUTH_GLOBUS_KEY = 'Put your Client ID here'
     SOCIAL_AUTH_GLOBUS_SECRET = 'Put your Client Secret Here'
