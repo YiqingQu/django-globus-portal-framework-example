@@ -46,7 +46,7 @@ ALLOWED_HOSTS = []
 
 SEARCH_INDEXES = {
     'my-search-index': {
-        'uuid': 'd731e958-1504-4b17-8b2d-05a9e7527af1',
+        'uuid': '4dcf50b9-14e7-4994-be36-6c6b11a73cd2',
         'name': 'My Search Index',
         'fields': [
             ('dc', fields.dc),
