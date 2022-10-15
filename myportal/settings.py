@@ -100,8 +100,8 @@ SEARCH_INDEXES = {
         ],
         'facets': [
             {
-                'name': 'Subject',
-                'field_name': 'subject',
+                'name': 'Extension',
+                'field_name': 'extension',
                 'size': 10,
                 'type': 'terms'
             },
