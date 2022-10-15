@@ -92,7 +92,8 @@ SEARCH_INDEXES = {
         'uuid': '43e540e1-dbd9-4723-a67a-b44b60621338',
         'name': 'My Search Index Demo',
         'fields': [
-            ('subject', fields.subject),
+            ('extension', fields.extension),
+            ('date', fields.date),
             # ('title', fields.title),
             # ('formatted_search_results', fields.formatted_search_results),
             # ('formatted_files', fields.formatted_files),
@@ -103,6 +104,12 @@ SEARCH_INDEXES = {
                 'field_name': 'subject',
                 'size': 10,
                 'type': 'terms'
+            },
+            {
+                "name": "Dates",
+                "field_name": "date",
+                "type": "date_histogram",
+                "date_interval": "hour",
             },
         ],
     }

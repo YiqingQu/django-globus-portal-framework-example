@@ -64,6 +64,11 @@ def files(result):
     return result[0]['files']
 
 
-def subject(result):
+def extension(result):
     print(result)
-    return result[0]['subject']
+    return result[0]['extension']
+
+
+def date(result):
+    print(result)
+    return result[0]['dateModified']
