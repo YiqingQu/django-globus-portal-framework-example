@@ -93,7 +93,7 @@ SEARCH_INDEXES = {
         'name': 'My Search Index Demo',
         'fields': [
             ('extension', fields.extension),
-            ('date', fields.date),
+            # ('date', fields.date),
             # ('title', fields.title),
             # ('formatted_search_results', fields.formatted_search_results),
             # ('formatted_files', fields.formatted_files),
@@ -105,12 +105,12 @@ SEARCH_INDEXES = {
                 'size': 10,
                 'type': 'terms'
             },
-            {
-                "name": "Dates",
-                "field_name": "date",
-                "type": "date_histogram",
-                "date_interval": "hour",
-            },
+            # {
+            #     "name": "Dates",
+            #     "field_name": "date",
+            #     "type": "date_histogram",
+            #     "date_interval": "hour",
+            # },
         ],
     }
 }
