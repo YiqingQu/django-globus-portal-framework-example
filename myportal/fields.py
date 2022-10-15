@@ -62,3 +62,7 @@ def dc(result):
 
 def files(result):
     return result[0]['files']
+
+
+def subject(result):
+    return result[0]['subject']
