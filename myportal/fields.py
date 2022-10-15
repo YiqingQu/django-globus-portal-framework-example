@@ -65,4 +65,5 @@ def files(result):
 
 
 def subject(result):
+    print(result)
     return result[0]['subject']
