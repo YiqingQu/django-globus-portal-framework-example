@@ -27,6 +27,7 @@ def formatted_search_results(result):
 
 
 def formatted_files(result):
+    print(result[0])
     entry = result[0]
     return [
         [
@@ -65,10 +66,49 @@ def files(result):
 
 
 def extension(result):
-    print(result)
+    # print(result)
     return result[0]['extension']
 
 
+def size_bytes(result):
+    # print(result)
+    return result[0]['size_bytes']
+
+
+def creator_name(result):
+    return result[0]['creator']['@list'][0]['name']
+
+
+def creative_work_status(result):
+    return result[0]['creativeWorkStatus']
+
+
+def name(result):
+
+    return result[0]['name']
+
+
+def cre(result):
+
+    return result[0]['cre']
+
+
+def subject(result):
+    return result[0]['subject']
+
+
+def tt(result):
+    return result[0]['tt']
+
+
+def schemaorg(result):
+    return result[0]['schemaorgJson']
+
+
+def test(result):
+    return result[0]['test']['test1']
+
+
 def date(result):
-    print(result)
+    # print(result)
     return result[0]['dateModified']
