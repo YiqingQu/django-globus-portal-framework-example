@@ -95,8 +95,6 @@ SEARCH_INDEXES = {
             ('name', fields.name),
             ('creator', fields.creator_name),
             ('creative_work_status', fields.creative_work_status),
-            ('cre', fields.cre),
-            ('tt', fields.tt),
             ('schemaorg', fields.schemaorg),
             # ('test', fields.test),
         ],

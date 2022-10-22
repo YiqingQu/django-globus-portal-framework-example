@@ -76,6 +76,7 @@ def size_bytes(result):
 
 
 def creator_name(result):
+    print(result[0]['creator']['@list'][0]['name'])
     return result[0]['creator']['@list'][0]['name']
 
 
@@ -88,17 +89,8 @@ def name(result):
     return result[0]['name']
 
 
-def cre(result):
-
-    return result[0]['cre']
-
-
 def subject(result):
     return result[0]['subject']
-
-
-def tt(result):
-    return result[0]['tt']
 
 
 def schemaorg(result):
