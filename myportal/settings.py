@@ -105,42 +105,37 @@ SEARCH_INDEXES = {
                 'size': 10,
                 'type': 'terms'
             },
+            # {
+            #     'name': 'Availability Filter',
+            #     'field_name': 'schemaorgJson.creativeWorkStatus',
+            #     'size': 10,
+            #     'type': 'terms'
+            # },
+            # {
+            #     'name': 'Tags',
+            #     'field_name': 'tags',
+            #     'size': 10,
+            #     'type': 'terms'
+            # },
             {
-                'name': 'Owner',
-                'field_name': 'schemaorgJson.creator.@list.name',
-                'size': 10,
-                'type': 'terms'
-            },
-            {
-                'name': 'Availability Filter',
-                'field_name': 'schemaorgJson.creativeWorkStatus',
-                'size': 10,
-                'type': 'terms'
-            },
-            {
-                'name': 'Tags',
-                'field_name': 'tags',
-                'size': 10,
-                'type': 'terms'
-            },            {
                 'name': 'Extension',
                 'field_name': 'extension',
                 'size': 10,
                 'type': 'terms'
             },
-            {
-                'name': 'File Size (Bytes)',
-                'type': 'numeric_histogram',
-                'field_name': 'size_bytes',
-                'size': 10,
-                'histogram_range': {'low': 5000, 'high': 10000},
-            },
-            {
-                "name": "Dates",
-                "field_name": "dateModified",
-                "type": "date_histogram",
-                "date_interval": "hour",
-            },
+            # {
+            #     'name': 'File Size (Bytes)',
+            #     'type': 'numeric_histogram',
+            #     'field_name': 'size_bytes',
+            #     'size': 10,
+            #     'histogram_range': {'low': 5000, 'high': 10000},
+            # },
+            # {
+            #     "name": "Dates",
+            #     "field_name": "dateModified",
+            #     "type": "date_histogram",
+            #     "date_interval": "hour",
+            # },
 
         ],
     }

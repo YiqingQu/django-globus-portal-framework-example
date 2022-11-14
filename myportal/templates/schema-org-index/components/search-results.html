@@ -75,9 +75,25 @@
                                         <tbody>
                                         {% for element in result.all %}
                                             <tr> <!--style="width: 100px" -->
-{#                                                {% for key, value in element.schemaorgJson.includedInDataCatalog %}#}
-                                                    <th>{{ element.schemaorgJson.includedInDataCatalog }}</th>
-{#                                                {% endfor %}#}
+
+                                                <th>{{ "CreatorName" }}</th>
+                                                <th>{{ "DatePublished" }}</th>
+                                                <th>{{ "DateModified" }}</th>
+                                            </tr>
+                                            <tr> <!--style="width: 100px" -->
+
+                                                {% if element.schemaorgJson.creator.items != None %}
+                                                    {% for key, value in element.schemaorgJson.creator.items %}
+                                                        {% for item_value in value %}
+                                                            <th>{{ item_value.name }}</th>
+                                                        {% endfor %}
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <th>{{ "Unknown" }}</th>
+                                                {% endif %}
+
+                                            <th>{{ element.schemaorgJson.datePublished|slice:":10"  }}</th>
+                                            <th>{{ element.dateModified|slice:":10" }}</th>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
