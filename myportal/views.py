@@ -19,4 +19,5 @@ def file_detail(request, index, filename):
     print("[file_detail]")
     context = {'detail': get_subject(index, filename, request.user)}
     print(json.dumps(context, indent=4, sort_keys=True, default=str))
+    # return render(request, get_template(index, 'schema-org-index/components/map_polygon.html'), context)
     return render(request, get_template(index, 'schema-org-index/detail-overview.html'), context)

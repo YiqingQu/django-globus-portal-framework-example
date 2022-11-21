@@ -14,35 +14,153 @@
                             {{ files }}
                             {% for field_dict in detail.all %}
                                 {% for name, data in field_dict.schemaorgJson.items %}
-                                    {% if name == "spatialCoverage" %}
+                                    {% if name == "temporalCoverage" %}
                                         <tr>
                                             <td>{{ name }}</td>
                                             <td>
-                                                <div id="map"></div>
-                                                <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-                                                <!-- playground-hide -->
-                                                <script>
-                                                    const process = {env: {}};
-                                                    process.env.GOOGLE_MAPS_API_KEY =
-                                                        "AIzaSyCffDPyT2Pr6kuV16AGxANxB3jaj-whg58";
-                                                </script>
-                                                <!-- playground-hide-end -->
-
-                                                <link rel="stylesheet" type="text/css" href="{% static '/css/map_polygon.css' %}"/>
-                                                <script type="module" src="{% static 'js/map_polygon.js' %}"></script>
-                                                <!--
-                                                 The `defer` attribute causes the callback to execute after the full HTML
-                                                 document has been parsed. For non-blocking uses, avoiding race conditions,
-                                                 and consistent behavior across browsers, consider loading using Promises
-                                                 with https://www.npmjs.com/package/@googlemaps/js-api-loader.
-                                                -->
-                                                <script
-                                                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCffDPyT2Pr6kuV16AGxANxB3jaj-whg58
-    &callback=initMap&v=weekly"
-                                                        defer
-                                                ></script>
+                                                <i class="fa fa-calendar"></i>
+                                                <span class="format-date" data-date={{ data|truncatewords:10 }}>{{ data|truncatewords:10 }}</span>
                                             </td>
                                         </tr>
+
+                                    {% elif name == "spatialCoverage" %}
+                                        {% if  data != None %}
+                                            <tr>
+                                                <td>{{ name }}</td>
+                                                <td>
+
+                                                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnCzJyJ-WflfFk7BCUg1zen-hBYp9V0fo"
+                                                            async
+                                                            defer></script>
+                                                    <link
+                                                            rel="stylesheet"
+                                                            href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+                                                            integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+                                                            crossorigin=""
+                                                    />
+                                                    <script
+                                                            src="https://unpkg.com/leaflet@1.7.1/dist/leaflet-src.js"
+                                                            integrity="sha512-I5Hd7FcJ9rZkH7uD01G3AjsuzFy3gqz7HIJvzFZGFt2mrCS4Piw9bYZvCgUE0aiJuiZFYIJIwpbNnDIM6ohTrg=="
+                                                            crossorigin=""
+                                                    ></script>
+                                                    <script src="https://unpkg.com/leaflet.gridlayer.googlemutant@latest/dist/Leaflet.GoogleMutant.js"></script>
+
+                                                    <link rel="stylesheet" type="text/css"
+                                                          href="{% static '/css/map_polygon.css' %}"/>
+
+                                                    <div id="map" class="map"></div>
+
+                                                    <script type="text/javascript">
+                                                        var mapopts = {
+                                                            zoomSnap: 0.25,
+                                                        };
+
+                                                        var map = L.map("map", mapopts).setView([0, 0], 1);
+
+                                                        var roadMutant = L.gridLayer
+                                                            .googleMutant({
+                                                                maxZoom: 24,
+                                                                type: "roadmap",
+                                                            })
+                                                            .addTo(map);
+
+                                                        var satMutant = L.gridLayer.googleMutant({
+                                                            maxZoom: 24,
+                                                            type: "satellite",
+                                                        });
+
+                                                        var terrainMutant = L.gridLayer.googleMutant({
+                                                            maxZoom: 24,
+                                                            type: "terrain",
+                                                        });
+
+                                                        var hybridMutant = L.gridLayer.googleMutant({
+                                                            maxZoom: 24,
+                                                            type: "hybrid",
+                                                        });
+
+                                                        var styleMutant = L.gridLayer.googleMutant({
+                                                            styles: [
+                                                                {elementType: "labels", stylers: [{visibility: "off"}]},
+                                                                {featureType: "water", stylers: [{color: "#444444"}]},
+                                                                {
+                                                                    featureType: "landscape",
+                                                                    stylers: [{color: "#eeeeee"}]
+                                                                },
+                                                                {featureType: "road", stylers: [{visibility: "off"}]},
+                                                                {featureType: "poi", stylers: [{visibility: "off"}]},
+                                                                {
+                                                                    featureType: "transit",
+                                                                    stylers: [{visibility: "off"}]
+                                                                },
+                                                                {
+                                                                    featureType: "administrative",
+                                                                    stylers: [{visibility: "off"}]
+                                                                },
+                                                                {
+                                                                    featureType: "administrative.locality",
+                                                                    stylers: [{visibility: "off"}],
+                                                                },
+                                                            ],
+                                                            maxZoom: 24,
+                                                            type: "roadmap",
+                                                        });
+
+                                                        var trafficMutant = L.gridLayer.googleMutant({
+                                                            maxZoom: 24,
+                                                            type: "roadmap",
+                                                        });
+                                                        trafficMutant.addGoogleLayer("TrafficLayer");
+
+                                                        var transitMutant = L.gridLayer.googleMutant({
+                                                            maxZoom: 24,
+                                                            type: "roadmap",
+                                                        });
+                                                        transitMutant.addGoogleLayer("TransitLayer");
+
+                                                        var boundsStr = {{ data|safe }}['geo']['box'];
+                                                        console.log(boundsStr);
+                                                        var temp = boundsStr.trim().split(" ");
+                                                        var madBounds = [[temp[0], temp[1]], [temp[2], temp[3]]];
+
+                                                        var mad = [(Number(temp[0]) + Number(temp[2])) / 2, (Number(temp[1]) + Number(temp[3])) / 2];
+                                                        console.log(madBounds);
+                                                        console.log(mad);
+
+
+                                                        {#var marker6 = L.marker(mad).addTo(map);#}
+                                                        var rectangle = L.rectangle(madBounds).addTo(map);
+
+
+                                                        map.fitBounds(madBounds);
+
+                                                        var grid = L.gridLayer({
+                                                            attribution: "Debug tilecoord grid",
+                                                        });
+
+                                                        L.control
+                                                            .layers(
+                                                                {
+                                                                    Roadmap: roadMutant,
+                                                                    Aerial: satMutant,
+                                                                    Terrain: terrainMutant,
+                                                                    Hybrid: hybridMutant,
+                                                                    Styles: styleMutant,
+                                                                    Traffic: trafficMutant,
+                                                                    Transit: transitMutant,
+                                                                },
+                                                                {
+                                                                    "Tilecoord grid": grid,
+                                                                },
+                                                                {
+                                                                    collapsed: false,
+                                                                }
+                                                            )
+                                                            .addTo(map);
+                                                    </script>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
 
 
                                     {% else %}
@@ -55,6 +173,8 @@
                                 {% endfor %}
                             {% endfor %}
                             </tbody>
+                            <script type="module" src="{% static '/js/map_polygon.js' %}"></script>
+                            <script>var exports = {};</script>
                         </table>
                     </div>
                 </div>
@@ -83,3 +203,4 @@
         </div>
     </div>
 {% endblock %}
+

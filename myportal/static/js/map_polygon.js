@@ -1,52 +1,28 @@
-// This example uses the Google Maps JavaScript API's Data layer
-// to create a rectangular polygon with 2 holes in it.
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 function initMap() {
-    const map = new google.maps.Map(
-        document.getElementById("map"),
-        {
-            zoom: 6,
-            center: {lat: -33.872, lng: 151.252},
-        }
-    );
-
-    // Define the LatLng coordinates for the outer path.
-    const outerCoords = [
-        {lat: -32.364, lng: 153.207}, // north west
-        {lat: -35.364, lng: 153.207}, // south west
-        {lat: -35.364, lng: 158.207}, // south east
-        {lat: -32.364, lng: 158.207}, // north east
-    ];
-
-    // Define the LatLng coordinates for an inner path.
-    const innerCoords1 = [
-        {lat: -33.364, lng: 154.207},
-        {lat: -34.364, lng: 154.207},
-        {lat: -34.364, lng: 155.207},
-        {lat: -33.364, lng: 155.207},
-    ];
-
-    // Define the LatLng coordinates for another inner path.
-    const innerCoords2 = [
-        {lat: -33.364, lng: 156.207},
-        {lat: -34.364, lng: 156.207},
-        {lat: -34.364, lng: 157.207},
-        {lat: -33.364, lng: 157.207},
-    ];
-
-    map.data.add({
-        geometry: new google.maps.Data.Polygon([
-            outerCoords,
-            innerCoords1,
-            innerCoords2,
-        ]),
+    console.log(11);
+    console.log(document.getElementById("map"));
+    var map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 3,
+        center: { lat: 0, lng: -180 },
+        mapTypeId: "terrain",
     });
+    var flightPlanCoordinates = [
+        { lat: 37.772, lng: -122.214 },
+        { lat: 21.291, lng: -157.821 },
+        { lat: -18.142, lng: 178.431 },
+        { lat: -27.467, lng: 153.027 },
+    ];
+    var flightPath = new google.maps.Polyline({
+        path: flightPlanCoordinates,
+        geodesic: true,
+        strokeColor: "#FF0000",
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+    });
+    flightPath.setMap(map);
+    console.log(11);
 }
-
-interface Window {
-    initMap: () => void;
-}
-
-let window: Window = {};
 window.initMap = initMap;
-export {};
+//# sourceMappingURL=map_polygon.js.map
