@@ -111,12 +111,12 @@ SEARCH_INDEXES = {
             #     'size': 10,
             #     'type': 'terms'
             # },
-            # {
-            #     'name': 'Tags',
-            #     'field_name': 'tags',
-            #     'size': 10,
-            #     'type': 'terms'
-            # },
+            {
+                'name': 'Tags',
+                'field_name': 'tags',
+                'size': 10,
+                'type': 'terms'
+            },
             {
                 'name': 'Extension',
                 'field_name': 'extension',
