@@ -18,7 +18,6 @@ log = logging.getLogger(__name__)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -42,7 +41,6 @@ SOCIAL_AUTH_GLOBUS_SCOPE = [
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 SEARCH_INDEXES = {
     'my-search-index': {
@@ -87,9 +85,61 @@ SEARCH_INDEXES = {
                 "date_interval": "hour",
             },
         ],
+    },
+    'schema-org-index': {
+        'uuid': '76c5e7eb-6cb6-492c-ba80-7e47abff0586',
+        'name': 'Schema.org Json Index',
+        'fields': [
+            ('extension', fields.extension),
+            ('size_bytes', fields.size_bytes),
+            ('name', fields.name),
+            ('creator', fields.creator_name),
+            ('creative_work_status', fields.creative_work_status),
+            ('schemaorg', fields.schemaorg),
+            # ('test', fields.test),
+        ],
+        'facets': [
+            {
+                'name': 'Creator',
+                'field_name': 'schemaorgJson.creator.@list.name',
+                'size': 10,
+                'type': 'terms'
+            },
+            # {
+            #     'name': 'Availability Filter',
+            #     'field_name': 'schemaorgJson.creativeWorkStatus',
+            #     'size': 10,
+            #     'type': 'terms'
+            # },
+            # {
+            #     'name': 'Tags',
+            #     'field_name': 'tags',
+            #     'size': 10,
+            #     'type': 'terms'
+            # },
+            {
+                'name': 'Extension',
+                'field_name': 'extension',
+                'size': 10,
+                'type': 'terms'
+            },
+            # {
+            #     'name': 'File Size (Bytes)',
+            #     'type': 'numeric_histogram',
+            #     'field_name': 'size_bytes',
+            #     'size': 10,
+            #     'histogram_range': {'low': 5000, 'high': 10000},
+            # },
+            # {
+            #     "name": "Dates",
+            #     "field_name": "dateModified",
+            #     "type": "date_histogram",
+            #     "date_interval": "hour",
+            # },
+
+        ],
     }
 }
-
 
 # Application definition
 INSTALLED_APPS = [
@@ -144,7 +194,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myportal.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -154,7 +203,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 LOGGING = {
     'version': 1,
@@ -181,11 +229,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "myportal" / "static",
+    'static/',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
